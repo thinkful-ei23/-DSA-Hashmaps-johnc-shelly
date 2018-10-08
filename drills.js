@@ -20,7 +20,15 @@ class HashMap {
 			this._resize(this._capacity * HashMap.SIZE_RATIO);
 		}
 
-		const index = this._findSlot(key);
+        const index = this._findSlot(key);
+
+        if(this._slots[index]){
+            this._slots[index].next ={
+                key,
+                value,
+                deleted: false
+            };
+        };
 		this._slots[index] = {
 			key,
 			value,
@@ -81,9 +89,23 @@ class HashMap {
 HashMap.MAX_LOAD_RATIO = 0.9;
 HashMap.SIZE_RATIO = 3;
 
-function checkPali(key, value) {
-	//fuck with the key, spits out value
-	//check that the value is a palindrome?
+
+function checkPali(string) {
+    let count = 1
+    const palindrome = new Map()
+    for(let i = 0; i <string.length; i++){
+        if(palindrome.has(string[i],string[i])){
+            count++
+
+        }else{
+            palindrome.set(string[i],string[i])
+            count --
+        }
+    }
+    if(count <0){
+        return false
+    }
+    return true
 }
 
 function main() {
@@ -108,4 +130,6 @@ function main() {
 	console.log(palindrome);
 }
 
-main();
+//main();
+console.log(checkPali('acecarr'))
+console.log(checkPali('north'))
