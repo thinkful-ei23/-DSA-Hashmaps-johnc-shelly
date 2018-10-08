@@ -20,15 +20,15 @@ class HashMap {
 			this._resize(this._capacity * HashMap.SIZE_RATIO);
 		}
 
-        const index = this._findSlot(key);
+		const index = this._findSlot(key);
 
-        if(this._slots[index]){
-            this._slots[index].next ={
-                key,
-                value,
-                deleted: false
-            };
-        };
+		if (this._slots[index]) {
+			this._slots[index].next = {
+				key,
+				value,
+				deleted: false
+			};
+		}
 		this._slots[index] = {
 			key,
 			value,
@@ -89,24 +89,44 @@ class HashMap {
 HashMap.MAX_LOAD_RATIO = 0.9;
 HashMap.SIZE_RATIO = 3;
 
-
 function checkPali(string) {
-    let count = 1
-    const palindrome = new Map()
-    for(let i = 0; i <string.length; i++){
-        if(palindrome.has(string[i],string[i])){
-            count++
-
-        }else{
-            palindrome.set(string[i],string[i])
-            count --
-        }
-    }
-    if(count <0){
-        return false
-    }
-    return true
+	let count = 1;
+	const palindrome = new Map();
+	for (let i = 0; i < string.length; i++) {
+		if (palindrome.has(string[i], string[i])) {
+			count++;
+		} else {
+			palindrome.set(string[i], string[i]);
+			count--;
+		}
+	}
+	if (count < 0) {
+		return false;
+	}
+	return true;
 }
+
+const input = ['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race'];
+
+function anagrams(array) {
+	const anagram = new Map();
+	for (i = 0; i < array.length; i++) {
+		let sum = 0;
+		for (j = 0; j < array[i].length; j++) {
+			sum += array[i].charCodeAt(j);
+		}
+		if (anagram.has(sum)) {
+			anagram.set(sum, [array[i], ...anagram.get(sum)]);
+		} else {
+			anagram.set(sum, [array[i]]);
+			console.log(anagram);
+		}
+		sum = 0;
+	}
+	return anagram;
+}
+
+console.log(anagrams(input));
 
 function main() {
 	const lotr = new Map();
@@ -130,6 +150,6 @@ function main() {
 	console.log(palindrome);
 }
 
-//main();
-console.log(checkPali('acecarr'))
-console.log(checkPali('north'))
+// main();
+// console.log(checkPali('acecarr'))
+// console.log(checkPali('north'))
